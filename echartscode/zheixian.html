@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>图表</title>
+		<script tpye="text/javascript" src="./echarts.min.js"></script>
+		<style type="text/css">
+			#main{
+				width: 600px;
+				height: 400px;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="main"></div>
+		<script>
+			//1.初始化图表
+			var myChart = echarts.init(document.getElementById("main"));
+			//2.初始化数据
+			var option = {
+				title: { text: 'ECharts 入门示例' },
+				tooltip: {},
+				legend: { data: ['销量'] },
+				xAxis: { data: ["衬衫", "羊毛衫", "雪纺衫", "裤子", "高跟鞋", "袜子"] },
+				yAxis: {},
+				series: [{
+					name: '销量',
+					type: 'bar',
+					data: [11, 20, 36, 10, 10, 20]
+				}]
+			};
+			//3.将数据写入到图表
+			myChart.setOption(option);
+		</script>
+	</body>
+</html>
