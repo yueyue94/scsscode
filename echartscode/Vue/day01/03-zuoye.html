@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<script type="text/javascript" src="../js/vue.js">
+				
+			</script>
+			<style type="text/css">
+				.list{width: 100px; height: 100px; background: red;}
+				.red{background: red;}
+				.green{background: green;}
+			</style>
+		</head>
+		<body>
+			<div id="app">
+				<div class="list" :class="bgcolor"></div>
+				<button @click="changeColor">改变背景颜色</button>
+			</div>
+			<script type="text/javascript">
+				var vm = new Vue({
+					el:"#app",
+					data:{
+						bgcolor:'red'
+					},
+					
+					methods:{
+						changeColor:function(){
+							if(this.bgcolor == "red"){
+								this.bgcolor = "green";
+							}else{
+								this.bgcolor = "red";
+							}
+						}
+					}
+				})
+			</script>
+	</body>
+</html>
