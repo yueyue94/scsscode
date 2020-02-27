@@ -1,159 +1,95 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Vue测试</title>
-    <script type="text/javascript" src='../js/vue.js'></script>
-    <script type="text/javascript" src='../js/axios.min.js'></script>
-    <style>
-        body {
-          font-family: Helvetica Neue, Arial, sans-serif;
-          font-size: 14px;
-          color: #444;
-        }
- 
-        table {
-          border: 2px solid #42b983;
-          border-radius: 3px;
-          background-color: #fff;
-        }
- 
-        th {
-          background-color: #42b983;
-          color: rgba(255,255,255,0.66);
-          cursor: pointer;
-          -webkit-user-select: none;
-          -moz-user-select: none;
-          -user-select: none;
-        }
- 
-        td {
-          background-color: #f9f9f9;
-        }
- 
-        th, td {
-          min-width: 120px;
-          padding: 10px 20px;
-        }
- 
-        th.active {
-          color: #fff;
-        }
- 
-        th.active .arrow {
-          opacity: 1;
-        }
- 
-        .arrow {
-          display: inline-block;
-          vertical-align: middle;
-          width: 0;
-          height: 0;
-          margin-left: 5px;
-          opacity: 0.66;
-        }
- 
-        .arrow.asc {
-          border-left: 4px solid transparent;
-          border-right: 4px solid transparent;
-          border-bottom: 4px solid #fff;
-        }
- 
-        .arrow.dsc {
-          border-left: 4px solid transparent;
-          border-right: 4px solid transparent;
-          border-top: 4px solid #fff;
-        }
-    </style>
-</head>
-<body>
-    <!-- demo root element -->
-    <div id="demo">
-        <form id="search">
-        Search <input name="query" v-model="filterKey">
-        <b>排序:</b>
-        <select name="key" id="key">
-            <option value="{{key}}" v-repeat="key : gridColumns">{{key | capitalize}}</option>
-        </select>
-        <select name="sequence" id="sequence">
-            <option value="default">默认</option>
-            <option value="small">由小到大</option>
-            <option value="big">由大到小</option>
-        </select>
-        <button id="btn">确认</button>
-        </form>
-        <table>
-            <thead>
-                <tr>
-                <th v-repeat="key: gridColumns" v-on="click:sortBy(key)" v-class="active: sortKey == key">
-                    {{key | capitalize}}
-                    <span class="arrow" v-class="reversed[key] ? 'dsc' : 'asc'">
-                    </span>
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-                <tr v-repeat="entry: gridData
-                | filterBy filterKey
-                | orderBy sortKey reversed[sortKey]">
-                    <td v-repeat="key: gridColumns">
-                        {{entry[key]}}
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
- 
-    <script>
-        $('#btn').click(function (e) {
-            e.preventDefault();
-            var key = $('#key').val();
-            var sequence = $('#sequence').val();
-            console.log(key+'顺序'+sequence);
-            if (sequence === 'default') {
-                demo.sortKey = '';
-            }
-            else {
-                controller(key, sequence);
-            }
-            function controller(key, sequence) {
-                demo.sortKey = key;
-                if (sequence === 'big') {
-                    demo.reversed[key] = true;
-                }
-                else {
-                    demo.reversed[key] = false;
-                }
-            }
-        });
-        // bootstrap the demo
-        var demo = new Vue({
-          el: '#demo',
-          data: {
-            sortKey: '',
-            filterKey: '',
-            reversed: {},
-            search: '',
-            gridColumns: ['name', 'power'],
-            gridData: [
-              { name: 'Chuck Norris', power: Infinity },
-              { name: 'Bruce Lee', power: 9000 },
-              { name: 'Jacky Chang', power: 7000 },
-              { name: 'Jet Li', power: 8000 }
-            ]
-          },
-          compiled: function () {
-            // initialize reverse state
-            var self = this
-            this.gridColumns.forEach(function (key) {
-                self.reversed.$add(key, false)
-            })
-          },
-          methods: {
-            sortBy: function (key) {
-              this.sortKey = key
-              this.reversed[key] = !this.reversed[key]
-        })
-    </script>
-</body>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<style type="text/css">
+			*{padding:0;margin:0;}
+			ul,li{list-style:none;}
+			#app{margin: 5px;}
+			.top,.bottom,.middle{margin: 10px;}
+			.list{display: flex;overflow: scroll;}
+			h3{margin-left: 8px;}
+			.list li img{width: 6.25rem;height: 8.9275rem;margin: 8px 0 8px 8px;}
+			.list li .tt{text-align: center;height: 1.875rem;line-height: 1.875rem;width: 6.75rem;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;}
+			.list li .score{text-align: center;font-size: 12px;color: #818181;}
+		</style>
+		<meta name="viewport" content="width=device-width">
+		<script src="../js/vue.js" type="text/javascript"></script>
+		<script src="../js/axios.min.js" type="text/javascript"></script>		
+	</head>
+	<body>
+		<div id="app">
+			<!-- 电视剧部分 -->			
+			<div class="top">
+				<h3>近期值得看的国产剧</h3>
+				<ul class="list">
+					<li v-for="item in dianshiju">						
+						<img :src="item.cover.url" title="item.title"/>
+						<div class="tt">{{item.title}}</div>	
+						<div v-for="(i,key) in item.rating" class="score">
+							{{key=="value"?"评分："+i:""}}
+						</div>
+					</li>
+				</ul>
+			</div>
+			<!-- 综艺部分 -->
+			<div class="middle">
+				<h3>近期值得看的综艺</h3>
+				<ul class="list">
+					<li v-for="item in zongyi">
+						<img :src="item.cover.url" title="item.title"/>
+						<div class="tt">{{item.title}}</div>	
+						<div v-for="(i,key) in item.rating" class="score">
+							{{key=="value"?"评分："+i:""}}
+						</div>					
+					</li>
+				</ul>
+			</div>
+			<!-- 英美剧部分 -->
+			<div class="bottom">
+				<h3>近期值得看的英美剧</h3>
+				<ul class="list">
+					<li v-for="item in yingmei">
+						<img :src="item.cover.url" title="item.title"/>
+						<div class="tt">{{item.title}}</div>	
+						<div v-for="(i,key) in item.rating" class="score">
+							{{key=="value"?"评分："+i:""}}
+						</div>					
+					</li>
+				</ul>
+			</div>			
+		</div>
+		
+		<script type="text/javascript">
+			var vm = new Vue({
+				el:"#app",
+				data:{
+					dianshiju:[],
+					zongyi:[],
+					yingmei:[],
+				},
+				mounted:function(){
+					axios.get('dianshiju.json').then((data)=>{//成功获取数据的回调函数
+						console.log(data);
+						this.dianshiju = data.data.subject_collection_items;
+						return axios.get('zongyi.json');
+					}).catch((error)=>{//失败的回调函数
+						console.log(error);
+					}).then((data)=>{
+						console.log(data);
+						this.zongyi = data.data.subject_collection_items;
+						return axios.get('yingmei.json');
+					}).catch((error)=>{//失败的回调函数
+						console.log(error);
+					}).then((data)=>{
+						console.log(data);
+						this.yingmei = data.data.subject_collection_items;
+					}).catch((error)=>{//失败的回调函数
+						console.log(error);
+					})
+				}
+			})
+		</script>
+	</body>
 </html>
