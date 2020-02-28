@@ -59,6 +59,7 @@
 				}
 			} 
 			
+			
 			var vm = new Vue({
 				el:"#app",
 				data:{
@@ -85,6 +86,9 @@
 					}).catch((error)=>{//失败的回调函数
 						console.log(error);
 					})
+				},
+				components:{
+					filmlist
 				}
 			})
 		</script>
