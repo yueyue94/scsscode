@@ -21,49 +21,44 @@
 	</head>
 	<body>
 		<div id="app">
-			<!-- 电视剧部分 -->			
-			<div class="top">
-				<h3>近期值得看的国产剧</h3>
-				<ul class="list">
-					<li v-for="item in dianshiju">	
-										<!-- <img src="https://img3.doubanio.com/view/photo/m_ratio_poster/public/p2587877550.jpg" /> -->
-						<img :src="item.cover.url" title="item.title"/>
-						<div class="tt">{{item.title}}</div>	
-						<div v-for="(i,key) in item.rating" class="score">
-							{{key=="value"?"评分："+i:""}}
-						</div>
-					</li>
-				</ul>
-			</div>
-			<!-- 综艺部分 -->
-			<div class="middle">
-				<h3>近期值得看的综艺</h3>
-				<ul class="list">
-					<li v-for="item in zongyi">
-						<img :src="item.cover.url" title="item.title"/>
-						<div class="tt">{{item.title}}</div>	
-						<div v-for="(i,key) in item.rating" class="score">
-							{{key=="value"?"评分："+i:""}}
-						</div>					
-					</li>
-				</ul>
-			</div>
-			<!-- 英美剧部分 -->
-			<div class="bottom">
-				<h3>近期值得看的英美剧</h3>
-				<ul class="list">
-					<li v-for="item in yingmei">
-						<img :src="item.cover.url" title="item.title"/>
-						<div class="tt">{{item.title}}</div>	
-						<div v-for="(i,key) in item.rating" class="score">
-							{{key=="value"?"评分："+i:""}}
-						</div>					
-					</li>
-				</ul>
-			</div>			
+			<!--国产-->
+			<filmlist text="国产剧" :filmarr="dianshiju" ></filmlist>
+			<!--综艺-->
+			<filmlist text="综艺节目" :filmarr = "zongyi"></filmlist>
+			<!--英美-->
+			<filmlist text="英美剧" :filmarr="yingmei" ></filmlist>
 		</div>
-		
+
 		<script type="text/javascript">
+			
+			var filmitem = {
+				props:['i'],
+				template:`
+				<li>
+					<img :src="i.cover.url" title="i.title"/>
+					<div class="tt">{{i.title}}</div>	
+					<div v-for="(i,key) in i.rating" class="score">
+						{{key=="value"?"评分："+i:""}}
+					</div>
+				</li>
+				`
+			};
+			
+			var filmlist = {
+				props:['text','filmarr'],
+				template:`
+				<div>
+					<h3>近期值得看的{{text}}</h3>
+					<ul class="list">
+						<filmitem v-for="(item,index) in filmarr" :i="item"></filmitem>
+					</ul>
+				</div>
+				`,
+				components:{
+					filmitem
+				}
+			} 
+			
 			var vm = new Vue({
 				el:"#app",
 				data:{
