@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<script src="../js/vue.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+	<body>
+		<div id="app">
+			{{num}}
+			使用过滤器：
+			{{num | numberf(3)}}
+		</div>
+		<script type="text/javascript">
+			var vm = new Vue({
+				el:'#app',
+				data:{
+					num:31.27894
+				},
+				filters:{
+					numberf:function(value,arg){
+						var arr = value.toString().split('.');
+						return (arr[0] + '.'  + arr[1].substring(0,arg));
+					}
+				}
+			})
+		</script>
+	</body>
+</html>

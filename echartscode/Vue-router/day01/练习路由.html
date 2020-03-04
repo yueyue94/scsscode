@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<script src="../js/vue.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../js/vue-router.js" type="text/javascript" charset="utf-8"></script>
+		<style>
+			button{
+				margin-right: 5px;
+			}
+			.cent{
+				width: 150px;
+				height: 100px;
+				background-color: #87CEEB;
+			}
+		</style>
+		
+	</head>
+	<body>
+		<div id="app">
+			<router-link to="/film"><button>电影</button></router-link>
+			<router-link to="/cinema"><button>影院</button></router-link>
+			<router-link to="/about"><button>我的</button></router-link>
+			<div class="cent"><router-view>      </router-view></div>
+		</div>
+		<script type="text/javascript">
+			var film = {
+				template: `<div>电影</div>`
+			};
+			var cinema = {
+				template: `<div>影院</div>`
+			};
+			var about = {
+				template: `<div>我的</div>`
+			};
+			
+			var routes = [
+				//路径           要显示的组件
+				{"path":"/film","component":film},
+				{"path":"/cinema","component":cinema},
+				{"path":"/about","component":about}				
+			];
+			
+			var router = new VueRouter({
+				routes:routes
+			})
+			
+			var vm = new Vue({
+				el:'#app',
+				data:{},
+				//4.注册到根组件
+				router:router
+			})
+		</script>
+	</body>
+</html>
