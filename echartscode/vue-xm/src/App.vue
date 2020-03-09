@@ -1,48 +1,55 @@
 <template>
   <div id="app">
+	<div id="main"><router-view></router-view></div>
     <div id="nav">
-		<router-link to="/">
-			<img src="https://www.jvhv.com/wap/static/images/footer_1_red.png" />
-			<div>首页</div>
-      	</router-link> 
-        <router-link to="/myfind">
-      		<img src="https://www.jvhv.com/wap/static/images/footer_6_red.png" />
-      		<div>发现</div>
-      	</router-link> 
-      	<router-link to="/mymessage">
-      		<img src="https://www.jvhv.com/wap/static/images/footer_8_red.png" />
-      		<div>消息</div>
-		</router-link>
-      	<router-link to="/myme">
-      		<img src="https://www.jvhv.com/wap/static/images/footer_5_red.png" />
-      		<div>我的</div>
-		</router-link>
-    </div>
-    <router-view/>
+      <router-link to="/">
+		  <img src="https://www.jvhv.com/wap/static/images/footer_1_red.png" />
+		  <li>首页</li>
+	  </router-link>
+      <router-link to="/find">
+		  <img src="https://www.jvhv.com/wap/static/images/footer_6_red.png" />
+		  <li>发现</li> 
+	  </router-link>
+	  <router-link to="/message">
+		  <img src="https://www.jvhv.com/wap/static/images/footer_8_red.png" />
+		  <li>消息</li>
+	  </router-link>
+	  <router-link to="/mine">
+		  <img src="https://www.jvhv.com/wap/static/images/footer_5_red.png" />
+		  <li>我的</li>
+	  </router-link>
+    </div>    
   </div>
 </template>
 
-<style lang="scss" >
-ul,li{list-style:none;}	
-a{text-decoration: none;}	
+<script>
+
+</script>
+
+<style lang="scss">
+*{margin: 0;padding: 0;}
+ul,li{padding: 0;margin: 0;}
+#app{width: 100%;}
+#main{width: 100%;}
 #nav {
-	font-size:12px;
-	position: fixed;
-	bottom:0;
-	left:0;
-	right:0;
-	height:50px;
-	border-top:1px solid #ccc;
-	//line-height:50px;
-	display: flex;
-	flex-direction: row;
-	flex-wrap: nowrap;
-	justify-content: space-around;
-	a{
-	color:#000;
-	img{width: 27px; height:27px;padding-top :2px}  
-	div{height:23px;}
+  background-color: white;
+  margin-top: 3px;
+  border-top: 1px solid #ddd;
+  position:fixed;
+  bottom: 0px;
+  font-size: 18px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: space-around;
+  width: 100%;
+  a{	
+	  color: black;
+	  display: flex;
+	  flex-direction: column;
+	  img{width: 27px;height: 27px;margin-bottom: 3px;}
+	  li{list-style: none;font-size: 12px;}
 	}
-  a:hover{color:#000; text-decoration: none;}
+   a:hover{color:#000; text-decoration: none;color: #005bac;}
 }
 </style>
